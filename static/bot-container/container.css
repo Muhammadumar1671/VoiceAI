@@ -1,0 +1,164 @@
+
+.mode{
+    background-color: transparent;
+}
+    
+  .chat-button1 {
+    background-color: transparent;
+    color: #fff; /* Adjust text color as needed */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover */
+}
+
+.chat-button1:hover {
+    background-color: rgba(255, 255, 255, 0.3); /* Darken on hover */
+}
+.tts-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+
+        .file-content {
+            margin-top: 50px;
+        }
+
+        .bot-pic-container{
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+            width: 40px;
+            height: 40px;
+        }
+        .chat-container {
+            width: 100%;
+            max-width: 800px;
+        
+            height: 500px;
+            background-color: transparent;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            align-items: center;
+            overflow-y: auto;
+            padding: 15px;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .messages-container {
+            flex: 1; /* This allows the messages to grow and take up available space */
+            width: 100%;
+            overflow-y: auto; /* Allows scrolling for messages */
+            padding-bottom: 20px; /* Adds space at the bottom to prevent overlap */
+        }
+
+            .button-container {
+                display: flex;
+                justify-content: space-around;
+                padding: 10px;
+                background-color: transparent;
+                z-index: 1010;
+                width: 100%;
+                position: relative; /* Changed from absolute to relative */
+            }
+
+        .bot-message {
+            align-self: flex-start;
+            background-color: #6e6e6e;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 5px 0;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background-color: #6e6e6e;
+            color: #333;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 5px 0;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 0 auto;
+            justify-content: flex-end;
+            background: rgba(255, 255, 255, 0.1);
+            border-top: 1px solid #ccc;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 10px;
+        }
+
+        .input-container input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 15px;
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: border-color 0.3s;
+        }
+
+        .input-container input:focus {
+            border-color: black;
+        }
+
+        .input-container button {
+            padding: 8px;
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+            border-radius: 15px;
+            outline: none;
+            margin-left: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .input-container .button-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .voice, .delete-button, .send-button {
+            background-color: #f1f1f1;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .button-icon {
+            font-size: 20px;
+        }
+       
+
+        .button-container button {
+            margin: 0 5px;
+        }

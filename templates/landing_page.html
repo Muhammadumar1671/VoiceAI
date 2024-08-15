@@ -1,0 +1,878 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voice AI for Developers</title>
+    <link rel="stylesheet" href="/static/landing_page/vs.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.167.1/three.cjs"
+    />
+    <link rel="stylesheet" href="/static/landing_page/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  </head>
+  <body>
+    <!-- Navigation and main heading -->
+    <header>
+      <nav>
+        <div class="header-icons">
+          <img src="/static/landing_page/images/icon1.svg" alt="icon1" />
+          <img src="/static/landing_page/images/icon2.svg" alt="icon1" />
+          <img src="/static/landing_page/images/icon3.svg" alt="icon1" />
+        </div>
+        <ul>
+          <li><a href="#solutions">Affiliates</a></li>
+          <li><a href="#testimonials">Docs</a></li>
+          <li><a href="#features">Pricing</a></li>
+          <li><a href="#get-started">Security</a></li>
+          <li><a href="#get-started">Dashboard</a></li>
+        </ul>
+      </nav>
+    
+
+      <div class="vp-content" id="vp-content">
+        <h2>Voice AI for Developers</h2>
+        <p>Use the world’s most powerful speech AI to transform your product</p>
+      
+        <div class="mic-container">
+          <div class="mic-icon">
+            <i class="fas fa-microphone"></i>
+          </div>
+        </div>
+        <a href="#" class="cta-button" id="cta-button">Give it a try!</a>
+        <div class="button-container">
+          <button class="btn2">Try for free</button>
+          <a href="#" class="btn1 btn-secondary">Get in touch</a>
+        </div>
+    </div>
+    
+    <div class="transparent-container" id="transparent-container">
+        <iframe src="/botiframe/" width="100%" height="100%" style="border:none;"></iframe>
+        <button id="toggle-transparent-btn" onclick="toggleTransparentContainer()">Go Back</button>
+    </div>
+    
+    
+    
+  
+    
+      
+    </header>
+    <!-- slider section content -->
+    <div class="main-slider-section text-center pt-20">
+      <p class="text1">Trusted by companies big and small</p>
+      <div class="container">
+        <div class="slider d-flex justify-content-between align-items-center">
+          <img src="/static/landing_page/images/logo1.svg" alt="Logo 1" class="img-fluid" />
+          <img src="/static/landing_page/images/logo2.svg" alt="Logo 2" class="img-fluid" />
+          <img src="/static/landing_page/images/logo3.svg" alt="Logo 3" class="img-fluid" />
+          <img src="/static/landing_page/images/logo1.svg" alt="Logo 1" class="img-fluid" />
+          <img src="/static/landing_page/images/logo2.svg" alt="Logo 2" class="img-fluid" />
+          <img src="/static/landing_page/images/logo3.svg" alt="Logo 3" class="img-fluid" />
+          <img src="/static/landing_page/images/logo1.svg" alt="Logo 1" class="img-fluid" />
+          <img src="/static/landing_page/images/logo2.svg" alt="Logo 2" class="img-fluid" />
+          <img src="/static/landing_page/images/logo3.svg" alt="Logo 3" class="img-fluid" />
+          <img src="/static/landing_page/images/logo2.svg" alt="Logo 2" class="img-fluid" />
+          <img src="/static/landing_page/images/logo3.svg" alt="Logo 3" class="img-fluid" />
+        </div>
+      </div>
+    </div>
+    <!-- Solutions section content -->
+    <section id="solutions">
+      <div class="container">
+        <div class="effect">
+          <div class="main-text">
+            <div class="inner-text">
+              <span class="tag">Use Cases</span>
+              <h3>Solutions for everything.</h3>
+              <p>
+                Customer support, front desk, outbound sales, lead generation,
+                telehealth, food ordering,<br />
+                transportation logistics, employee training, roleplay, or
+                whatever else you want to build.
+              </p>
+              <nav class="nav-bar2">
+                <button class="nav-item1 active">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12z"/><path d="M6 10h2v2H6zm0 4h8v2H6zm10 0h2v2h-2zm-6-4h8v2h-8z"/></svg>
+                  Inbound calls
+                </button>
+                <button class="nav-item1">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12z"/><path d="M6 10h2v2H6zm0 4h8v2H6zm10 0h2v2h-2zm-6-4h8v2h-8z"/></svg>
+                  Outbound calls
+                </button>
+                <button class="nav-item1">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                  Voice products
+                </button>
+                <button class="nav-item1">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M17 16l-4-4V8.82C14.16 8.4 15 7.3 15 6c0-1.66-1.34-3-3-3S9 4.34 9 6c0 1.3.84 2.4 2 2.82V12l-4 4H3v5h5v-3.05l4-4.2 4 4.2V21h5v-5h-4z"/></svg>
+                  Voice IoT
+                </button>
+              </nav>
+                    
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="main-cards">
+        <div class="container">
+          <div class="inner-cards">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="card1">
+                  <img src="/static/landing_page/images/c1.svg" alt="c1" />
+                  <div class="text">
+                    <h6>Barbershop</h6>
+                    <p>Availability, bookings, inquiries</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card1">
+                  <img src="/static/landing_page/images/c2.svg" alt="c1" />
+                  <div class="text">
+                    <h6>Barbershop</h6>
+                    <p>Availability, bookings, inquiries</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card1">
+                  <img src="/static/landing_page/images/c3.svg" alt="c1" />
+                  <div class="text">
+                    <h6>Barbershop</h6>
+                    <p>Availability, bookings, inquiries</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card1">
+                  <img src="/static/landing_page/images/c4.svg" alt="c1" />
+                  <div class="text">
+                    <h6>Barbershop</h6>
+                    <p>Availability, bookings, inquiries</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card1">
+                  <img src="/static/landing_page/images/c5.svg" alt="c1" />
+                  <div class="text">
+                    <h6>Barbershop</h6>
+                    <p>Availability, bookings, inquiries</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card1">
+                  <img src="/static/landing_page/images/c6.svg" alt="c1" />
+                  <div class="text">
+                    <h6>Barbershop</h6>
+                    <p>Availability, bookings, inquiries</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="m-card">
+      <div class="container">
+        <div class="main-card6">
+        <div class="header">
+            <span class="tag">AI made for everyone</span>
+            <h1>We're making voice AI's as simple, reliable, and accessible as any other API in your stack.</h1>
+        </div>
+        <div class="switch-container">
+            <label class="switch">
+                <input type="checkbox" id="comparisonSwitch">
+                <span class="slider6 round"></span>
+            </label>
+            <span class="switch-label">Switch to VAPI</span>
+        </div>
+        <div class="comparison-box">
+            <div class="card6" id="statusQuo">
+              <img src="/static/landing_page/images/icon11.svg" alt="icon11">
+              <h2>The status quo</h2>
+                <p>Months to work to production, continued DevOps and R&D investment.</p>
+                <div class="metrics">
+                    <div class="metric">
+                        <span>Response time</span>
+                        <strong id="statusQuoTime">82</strong><strong>ms</strong>
+                    </div>
+                    <div class="metric">
+                        <span>Live by</span>
+                        <strong>-</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="card6" id="vapi">
+              <img src="/static/landing_page/images/icon12.svg" alt="icon11">
+                <h2>Using VAPI</h2>
+                <p>In production tonight, world-class pushing DevOps and R&D.</p>
+                <div class="metrics">
+                    <div class="metric">
+                        <span>Response time</span>
+                        <strong id="vapiTime">79</strong><strong>ms</strong>
+                    </div>
+                    <div class="metric">
+                        <span>Live by</span>
+                        <strong>-</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  </div>
+    </div>
+  <section id="testimonials">
+  <div class="slider3-container">
+    <div class="slider3">
+      <!-- Card 1 -->
+      <div class="card3">
+        <p>Yeah, definitely take a look at @Vapi_AI. Really good developer ergonomics.
+           <br>You can get started quickly, but their APIs also give you a lot of flexibility. 
+           And they've solved a bunch of the hard, low-level stuff so you don't have to worry about things 
+           like echo cancellation, picking the fastest endpoints if you're using Azure, web socket reconnection logic across different
+           platforms, supporting WebRTC (apps, web pages) and PSTN (telephones) from the same codebase, 
+           etc etc etc.</p>
+        <div class="profile">
+          <img src="/static/landing_page/images/p1.svg" alt="profile">
+          <p><span>Kwindla Kramer</span><br>CEO & Co-founder, Daily</p>
+        </div>
+      </div>
+      <!-- Repeat the card structure for the other 5 cards -->
+        <div class="card3">
+        <p>Yeah, definitely take a look at @Vapi_AI. Really good developer ergonomics.
+           <br>You can get started quickly, but their APIs also give you a lot of flexibility. 
+           And they've solved a bunch of the hard, low-level stuff so you don't have to worry about things 
+           like echo cancellation, picking the fastest endpoints if you're using Azure, web socket reconnection logic across different
+           platforms, supporting WebRTC (apps, web pages) and PSTN (telephones) from the same codebase, 
+           etc etc etc.</p>
+        <div class="profile">
+          <img src="/static/landing_page/images/p1.svg" alt="profile">
+          <p><span>Kwindla Kramer</span><br>CEO & Co-founder, Daily</p>
+        </div>
+      </div>
+       <div class="card3">
+        <p>Yeah, definitely take a look at @Vapi_AI. Really good developer ergonomics.
+           <br>You can get started quickly, but their APIs also give you a lot of flexibility. 
+           And they've solved a bunch of the hard, low-level stuff so you don't have to worry about things 
+           like echo cancellation, picking the fastest endpoints if you're using Azure, web socket reconnection logic across different
+           platforms, supporting WebRTC (apps, web pages) and PSTN (telephones) from the same codebase, 
+           etc etc etc.</p>
+        <div class="profile">
+          <img src="/static/landing_page/images/p1.svg" alt="profile">
+          <p><span>Kwindla Kramer</span><br>CEO & Co-founder, Daily</p>
+        </div>
+      </div>
+       <div class="card3">
+        <p>Yeah, definitely take a look at @Vapi_AI. Really good developer ergonomics.
+           <br>You can get started quickly, but their APIs also give you a lot of flexibility. 
+           And they've solved a bunch of the hard, low-level stuff so you don't have to worry about things 
+           like echo cancellation, picking the fastest endpoints if you're using Azure, web socket reconnection logic across different
+           platforms, supporting WebRTC (apps, web pages) and PSTN (telephones) from the same codebase, 
+           etc etc etc.</p>
+        <div class="profile">
+          <img src="/static/landing_page/images/p1.svg" alt="profile">
+          <p><span>Kwindla Kramer</span><br>CEO & Co-founder, Daily</p>
+        </div>
+      </div>
+      <!-- ... -->
+    </div>
+  </div>
+</section>
+  <!-- Features -->
+    <section id="features">
+      <div class="main">
+      <div class="feature-img">
+      <img src="/static/landing_page/images/featues.svg" alt="feature"> <br>
+      <div class="btun">
+        <span class="tag">Unique features</span>
+      </div>
+    </div>
+    </div>
+    <div class="features-content">
+      <h4>Everything built-in to make your voicebot feel as <br>
+        natural, responsive and reliable as a person.</h4>
+    </div>
+    <div class="main-grids">
+    <div class="grid-container">
+      <div class="grid-item">
+        <img src="/static/landing_page/images/s1.svg" alt="s1">
+          <h3>Turbo latency optimizations</h3>
+          <p>Optimized GPU inference, intelligent caching, low-latency audio streaming.</p>
+      </div>
+      <div class="grid-item">
+        <img src="/static/landing_page/images/s2.svg" alt="s1">
+          <h3>Interruptions</h3>
+          <p>A person knows when to stop speaking, your voicebot should too.</p>
+      </div>
+      <div class="grid-item">
+        <img src="/static/landing_page/images/s3.svg" alt="s1">
+          <h3>Proprietary endpointing model</h3>
+          <p>With great speed comes great responsibility, your users shouldn’t be interrupted when they pause.</p>
+      </div>
+      <div class="grid-item">
+        <img src="/static/landing_page/images/s4.svg" alt="s1">
+          <h3>Scale to 1M+ concurrent calls</h3>
+          <p>Carefully designed Kubernetes cluster, with scalability, and high availability built-in.</p>
+      </div>
+      <div class="grid-item">
+        <img src="/static/landing_page/images/s5.svg" alt="s1">
+          <h3>Function calling</h3>
+          <p>Give your voicebot superpowers–booking appointments, data lookup, form-filling, and so much more.</p>
+      </div>
+      <div class="grid-item">
+        <img src="/static/landing_page/images/s6.svg" alt="s1">
+          <h3>WebRTC streaming</h3>
+          <p>Same protocol used by Google Meets and Microsoft Teams for the lowest latency and highest fault tolerance.</p>
+      </div>
+      <div class="grid-item">
+        <img src="/static/landing_page/images/s7.svg" alt="s1">
+          <h3>Onprem provider deployments</h3>
+          <p>Avoid the latency spikes and unreliability of shared infrastructure.</p>
+      </div>
+      <div class="grid-item">
+        <img src="/static/landing_page/images/s8.svg" alt="s1">
+          <h3>Multilingual support</h3>
+          <p>Create voice agents in your users’ tongues–English, Spanish, German, Hindi, Portuguese, and 100+ others.</p>
+      </div>
+      <div class="grid-item">
+         <img src="/static/landing_page/images/s9.svg" alt="s1">
+          <h3>Private internet backbone</h3>
+          <p>Avoid network congestion on the public internet for your users around the world.</p>
+      </div>
+  </div>
+
+</div>
+      <!-- section content  -->
+    </section>
+
+      <section id="get-started">
+        <div class="container">
+          <div class="container">
+            <div class="ai-power">
+              <div class="waves left-waves"></div>
+              <div class="content">
+                  <span class="tag2">For developers</span>
+                  <h1>All the power with all the customizability.</h1>
+                  <p>Plug in any model or voice, and talk to it everywhere.</p>
+              </div>
+              <div class="waves right-waves"></div>
+          </div>
+        </div>
+          <div class="main-custom">
+            <div class="custm">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="custom-card">
+                    <div class="icons5">
+                        <div class="inner-icon2">
+                          <img src="/static/landing_page/images/ic1.svg" alt="ic1">
+                          <img src="/static/landing_page/images/ic2.svg" alt="ic2">
+                          <img src="/static/landing_page/images/ic3.svg" alt="ic2">
+                        </div>
+                        <div class="inner-icon3">
+                          <img src="/static/landing_page/images/ic4.svg" alt="ic1">
+                          <img src="/static/landing_page/images/ic5.svg" alt="ic2">
+                          <img src="/static/landing_page/images/ic6.svg" alt="ic2">
+                        </div>
+                    </div>
+                    <div class="content-custom">
+                    <h3 class="mb-2">Bring your own models.</h3>
+                    <p>Or, use any platform we support built-in: OpenAI, Groq, Mistral, OpenRouter, Together, Anyscale.</p>
+                  </div>
+                  </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="custom-card">
+                  <div class="icons5">
+                    <div class="inner-icon2">
+                      <img src="/static/landing_page/images/con1.svg" alt="ic1">
+                      <img src="/static/landing_page/images/con2.svg" alt="ic2">
+                      <img src="/static/landing_page/images/con3.svg" alt="ic2">
+                      <img src="/static/landing_page/images/con4.svg" alt="ic2">
+
+                    </div>
+                    <div class="inner-icon3">
+                      <img src="/static/landing_page/images/con5.svg" alt="ic2">
+                      <img src="/static/landing_page/images/con6.svg" alt="ic2">
+                      <img src="/static/landing_page/images/con7.svg" alt="ic2">
+                    </div>
+                </div>
+                <div class="content-custom">
+                    <h3 class="mb-2">Bring your own voices.</h3>
+                    <p>Or, use any platform we support built-in: ElevenLabs, PlayHT, LMNT, Deepgram, Rime, OpenAI, Azure.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="custom-card">
+                  <div class="icons5">
+                    <div class="inner-icon2">
+                      <img src="/static/landing_page/images/cc1.svg" alt="ic1">
+                      <img src="/static/landing_page/images/cc2.svg" alt="ic2">
+                      <img src="/static/landing_page/images/cc3.svg" alt="ic2">
+                    </div>
+                    <div class="inner-icon3">
+                      <img src="/static/landing_page/images/cc4.svg" alt="ic1">
+                      <img src="/static/landing_page/images/cc5.svg" alt="ic2">
+                      <img src="/static/landing_page/images/cc6.svg" alt="ic2">
+                    </div>
+                </div>
+                <div class="content-custom">
+                    <h3 class="mb-2">Bring your own backend.</h3>
+                    <p>Use the full power of function calling to make agents that can do anything.</p>
+                  </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="custom-card1">
+                  <div class="icons5">
+                    <div class="inner-icon2">
+                      <!-- <img src="/static/landing_page/images/ic1.svg" alt="ic1">
+                      <img src="/static/landing_page/images/ic2.svg" alt="ic2">
+                      <img src="/static/landing_page/images/ic3.svg" alt="ic2">
+                    </div> -->
+                    <div class="inner-icon2">
+                      <img src="/static/landing_page/images/ccc1.svg" alt="ic1">
+                      <img src="/static/landing_page/images/ccc2.svg" alt="ic2">
+                      <img src="/static/landing_page/images/ccc3.svg" alt="ic2">
+                      <img src="/static/landing_page/images/ccc4.svg" alt="ic2">
+
+                    </div>
+                </div>
+                <div class="content-custom">
+                    <h3 class="mb-2">Bring your own surface.</h3>
+                    <p>Use our client-side SDKs for Web, iOS, Flutter, React Native, and Python (Hardware).</p>
+                  </div>
+                  </div>
+            </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
+    </section>
+<div class="main-Api">
+<div class="container">
+        <div class="glow"></div>
+        <h2>Let's get you integrated right now.</h2>
+        <div class="main-code-api">
+        <div class="m-dev">
+        <div class="language-tabs">
+            <div class="language-tab">React</div>
+            <div class="language-tab">Node.js</div>
+            <div class="language-tab">Serverless</div>
+            <div class="language-tab">Python</div>
+            <div class="language-tab">PHP</div>
+            <div class="language-tab">Ruby</div>
+            <div class="language-tab">Go</div>
+        </div>
+        <div class="code-container">
+            <pre><code>
+              <p>
+// Your code snippet here
+initialize swiper when document ready
+  var mySwiper = new Swiper(".swiper-container", {
+    // Navigation arrows
+    nextButton: ".swiper-button-next",
+    prevButton: ".swiper-button-prev",
+    slidesPerView: 2.7,
+    centeredSlides: true,
+    breakpoints: {
+      1440: {
+        slidesPerView: 2.6
+      },
+      1439: {
+        slidesPerView: 1.45
+      },
+      1024: {
+        slidesPerView: 1.45
+      },
+      1023: {
+        slidesPerView: 2
+      </p>
+            </code></pre>
+        </div>
+    </div>
+  </div>
+  </div>
+
+</div>
+   <div class="main-pricing-section">
+    <div class="container">
+      <div class="pricing-circle">
+          <div class="inner-content4">
+              <span class="tag4">Pricing</span>
+              <h2>VAPI costs $0.05 per minute.</h2>
+              <p>Bring your own keys for the underlying providers like ElevenLabs and OpenAI, or we can pass through the costs to you.</p>
+              <div class="app-features">
+                  <span>✓ No hidden costs</span>
+                  <span>✓ Bring your own API keys</span>
+              </div>
+              <div class="cta-buttons">
+                  <button class="btn8 btn-primary">Contact Sales</button>
+                  <button class="btn8 btn-secondary">Get $10 free credit</button>
+              </div>
+          </div>
+      </div>
+      
+      <div class="faq-section">
+        <div class="container">
+          <div class="inner-faq">
+            <div class="row">
+            <div class="col-md-6">
+          <h2>Frequently asked questions</h2>
+        </div>
+        <div class="col-md-6">
+          <div class="faq-item">
+              <div class="faq-question">Couldn't I build this myself and save money?</div>
+              <div class="faq-answer">Answer here...</div>
+          </div>
+          <div class="faq-item">
+              <div class="faq-question">Sounds good — but I'm building a custom X for Y...</div>
+              <div class="faq-answer">Answer here...</div>
+          </div>
+          <div class="faq-item">
+              <div class="faq-question">Is it going to be hard to set up?</div>
+              <div class="faq-answer">Answer here...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+  </div>
+   </div>
+
+   <!-- Design footer -->
+   <footer>
+    <div class="container">
+      <div class="main-navbr">
+    <nav>
+        <a href="#">Docs</a>
+        <a href="#">Pricing</a>
+        <a href="#">Security</a>
+        <a href="#">Enterprise</a>
+        <a href="#">Blog</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+    </nav>
+    <div class="social-icons">
+<img src="/static/landing_page/images/icon1.svg" alt="icon">
+<img src="/static/landing_page/images/icon2.svg" alt="icon1">
+<img src="/static/landing_page/images/icon3.svg" alt="icon">
+    </div>
+  </div>
+</div>
+</footer>
+    <script>
+      const micIcon = document.querySelector(".mic-icon");
+
+   
+      const slider = document.querySelector(".slider");
+
+      slider.addEventListener("mouseenter", () => {
+        slider.style.animationPlayState = "paused";
+      });
+
+      slider.addEventListener("mouseleave", () => {
+        slider.style.animationPlayState = "running";
+      });
+      const sliders = document.querySelector('.slider');
+const cards = document.querySelectorAll('.card');
+const prevBtn = document.querySelector('.prev-btn');
+const nextBtn = document.querySelector('.next-btn');
+
+let currentIndex = 0;
+
+function updateSlider() {
+  slider.style.transform = `translateX(-${currentIndex * (300 + 20)}px)`;
+}
+// Auto-scroll functionality
+function autoScroll() {
+  if (currentIndex < cards.length - 1) {
+    currentIndex++;
+  } else {
+    currentIndex = 0;
+  }
+  updateSlider();
+}
+
+// Start auto-scroll
+let scrollInterval = setInterval(autoScroll, 5000);
+
+// Pause auto-scroll on hover
+slider.addEventListener('mouseenter', () => {
+  clearInterval(scrollInterval);
+});
+
+// Resume auto-scroll when not hovering
+slider.addEventListener('mouseleave', () => {
+  scrollInterval = setInterval(autoScroll, 5000);
+});
+
+// // slider3
+// document.addEventListener('DOMContentLoaded', function() {
+//     const slider = document.querySelector('.slider3');
+//     const cards = document.querySelectorAll('.card3');
+//     let currentIndex = 0;
+
+//     function updateSlider() {
+//         const cardWidth = cards[0].offsetWidth + 20; // 20px for margin-right
+//         slider.style.transform = `translateX(-${currentIndex * cardWidth}px)`; // Fixed template literal syntax
+//         updateButtonStates();
+//     }
+
+//     function updateButtonStates() {
+//         prevBtn.disabled = currentIndex === 0;
+//         nextBtn.disabled = currentIndex === cards.length - 1;
+//     }
+
+//     prevBtn.addEventListener('click', function() {
+//         if (currentIndex > 0) {
+//             currentIndex--;
+//             updateSlider();
+//         }
+//     });
+
+//     nextBtn.addEventListener('click', function() {
+//         if (currentIndex < cards.length - 1) {
+//             currentIndex++;
+//             updateSlider();
+//         }
+//     });
+
+//     // Initialize button states
+//     updateButtonStates();
+
+//     // Optional: Add touch swipe functionality for mobile devices
+//     let touchStartX = 0;
+//     let touchEndX = 0;
+
+//     slider.addEventListener('touchstart', function(e) {
+//         touchStartX = e.changedTouches[0].screenX;
+//     }, false);
+
+//     slider.addEventListener('touchend', function(e) {
+//         touchEndX = e.changedTouches[0].screenX;
+//         handleSwipe();
+//     }, false);
+
+//     function handleSwipe() {
+//         if (touchEndX < touchStartX) {
+//             // Swipe left
+//             if (currentIndex < cards.length - 1) {
+//                 currentIndex++;
+//                 updateSlider();
+//             }
+//         } else if (touchEndX > touchStartX) {
+//             // Swipe right
+//             if (currentIndex > 0) {
+//                 currentIndex--;
+//                 updateSlider();
+//             }
+//         }
+//     }
+// });
+document.addEventListener('DOMContentLoaded', function() {
+    const switchElem = document.getElementById('comparisonSwitch');
+    const statusQuoCard = document.getElementById('statusQuo');
+    const vapiCard = document.getElementById('vapi');
+    const statusQuoTime = document.getElementById('statusQuoTime');
+    const vapiTime = document.getElementById('vapiTime');
+    const switchLabel = document.querySelector('.switch-label');
+
+
+
+
+    function animateNumber(elem, start, end, duration) {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            elem.innerHTML = Math.floor(progress * (end - start) + start);
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
+
+    switchElem.addEventListener('change', function() {
+        if (this.checked) {
+            statusQuoCard.classList.remove('active');
+            vapiCard.classList.add('active');
+            switchLabel.textContent = 'Switch to Status Quo';
+            animateNumber(statusQuoTime, 82, 89, 1000);
+            animateNumber(vapiTime, 79, 72, 1000);
+        } else {
+            statusQuoCard.classList.add('active');
+            vapiCard.classList.remove('active');
+            switchLabel.textContent = 'Switch to VAPI';
+            animateNumber(statusQuoTime, 89, 82, 1000);
+            animateNumber(vapiTime, 72, 79, 1000);
+        }
+    });
+
+    // Initial animation
+    animateNumber(statusQuoTime, 0, 82, 1000);
+    animateNumber(vapiTime, 0, 79, 1000);
+});
+
+function createWaves(elementClass, color) {
+    const wavesElement = document.querySelector(elementClass);
+    for (let i = 0; i < 10; i++) {
+        const wave = document.createElement('div');
+        wave.style.position = 'absolute';
+        wave.style.top = '50%';
+        wave.style.width = '2px';
+        wave.style.height = '0%';
+        wave.style.backgroundColor = color;
+        wave.style.transform = `translateY(-50%) translateX(${i * 15}px)`;
+        wave.style.opacity = 0.7 - (i * 0.07);
+        wavesElement.appendChild(wave);
+        animateWave(wave);
+    }
+}
+
+function animateWave(wave) {
+    let height = 0;
+    let growing = true;
+
+    setInterval(() => {
+        if (growing) {
+            height += 1;
+            if (height >= 100) growing = false;
+        } else {
+            height -= 1;
+            if (height <= 0) growing = true;
+        }
+        wave.style.height = `${height}%`;
+    }, 50 + Math.random() * 50);
+}
+
+createWaves('.left-waves', '#00ffff');
+createWaves('.right-waves', '#0080ff');
+
+document.addEventListener('DOMContentLoaded', () => {
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
+
+        question.addEventListener('click', () => {
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+            question.classList.toggle('active');
+        });
+    });
+});
+
+
+
+// slider 3
+$(document).ready(function(){
+  $('.slider3').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    dots: true,
+    arrows: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  });
+});
+    </script>
+
+
+<script>
+document.getElementById('cta-button').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default action of the anchor tag
+    
+    // Hide the vp-content
+    document.getElementById('vp-content').style.display = 'none';
+
+    // Show the transparent container with a transition
+    const transparentContainer = document.getElementById('transparent-container');
+    
+    // First, ensure the container is displayed (this removes 'display: none')
+    transparentContainer.style.display = 'block';
+
+    // Force a reflow to ensure the transition runs (important for smooth animation)
+    void transparentContainer.offsetWidth;
+
+    // Add the show class to trigger the transition
+    transparentContainer.classList.add('show');
+});
+
+function toggleTransparentContainer() {
+    const transparentContainer = document.getElementById('transparent-container');
+    const vpContent = document.getElementById('vp-content');
+
+    if (transparentContainer.classList.contains('show')) {
+        // Hide the transparent container
+        transparentContainer.classList.remove('show');
+        setTimeout(() => {
+            transparentContainer.style.display = 'none';
+            vpContent.classList.remove('hide'); // Show vp-content again
+            vpContent.style.display = 'block';
+        }, 700); // Match the transition duration
+    } else {
+        // Hide the vp-content
+        vpContent.classList.add('hide');
+        setTimeout(() => {
+            vpContent.style.display = 'none';
+            // Show the transparent container
+            transparentContainer.style.display = 'block';
+            void transparentContainer.offsetWidth; // Force reflow
+            transparentContainer.classList.add('show');
+        }, 700); 
+    }
+}
+
+
+</script>
+  </body>
+</html>
