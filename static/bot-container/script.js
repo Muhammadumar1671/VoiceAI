@@ -2,6 +2,214 @@
     document.addEventListener('DOMContentLoaded', () => {
         stopSpeech();
         displayInitialBotMessage();
+        removeInputAndSendButton();
+        addTextInputPrompt();
+        createBigVoiceButton();
+        CreateBigDeleteButton();
+        
+        function removeElementsByIds(ids) {
+            ids.forEach(function(id) {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.remove();
+                } else {
+                    console.log(`Element with id: ${id} not found`);
+                }
+            });
+        }
+
+
+        
+        function removeInputAndSendButton() {
+            removeElementsByIds(['user-input', 'send-button' , 'voice' , 'delete-button' , 'text-input-prompt']);
+        }
+
+        function createBigVoiceButton() {
+            const chatContainer = document.querySelector('.chat-container');
+            const voiceButton = document.createElement('div');
+        
+            // Set class and ID
+            voiceButton.className = 'big-voice-button';
+            voiceButton.id = 'big-voice';
+        
+            // Add microphone icon
+            voiceButton.innerHTML = '<i class="fas fa-microphone button-icon"></i>';
+        
+            // Style the button
+            voiceButton.style.cursor = 'pointer';
+            voiceButton.style.width = '80px'; // Increase size
+            voiceButton.style.height = '80px'; // Increase size
+            voiceButton.style.borderRadius = '50%'; // Make it circular
+            voiceButton.style.backgroundColor = 'rgba(255, 255, 255, 0.2)'; // Transparent white background
+            voiceButton.style.backdropFilter = 'blur(10px)'; // Add blur effect
+            voiceButton.style.display = 'flex';
+            voiceButton.style.color = 'black'; // White icon color
+            voiceButton.style.justifyContent = 'center';
+            voiceButton.style.position = 'fixed';
+            voiceButton.style.bottom = '120px';
+            voiceButton.style.alignItems = 'center';
+            voiceButton.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)'; // Add subtle shadow
+            voiceButton.style.transition = 'transform 0.3s, box-shadow 0.3s'; // Smooth transition for hover effect
+        
+            // Set the z-index to ensure it's on top
+            voiceButton.style.zIndex = '1000';
+        
+            // Append the button to the chat container
+            chatContainer.appendChild(voiceButton);
+        
+            // Add padding to the bottom of the chat container to make room for the button
+            chatContainer.style.paddingBottom = '150px'; // Adjust as necessary
+
+        
+            // Hover effect
+            voiceButton.addEventListener('mouseover', function() {
+                voiceButton.style.transform = 'scale(1.1)'; // Scale up on hover
+                voiceButton.style.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.3)'; // Increase shadow on hover
+            });
+        
+            voiceButton.addEventListener('mouseout', function() {
+                voiceButton.style.transform = 'scale(1)'; // Revert scale on hover out
+                voiceButton.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)'; // Revert shadow on hover out
+            });
+        
+            // Add click event listener
+            voiceButton.addEventListener('click', function() {
+                VoiceInput();
+            });
+        
+            // Append to chat container
+            chatContainer.appendChild(voiceButton);
+        }
+
+        function CreateBigDeleteButton(){
+            const chatContainer = document.querySelector('.chat-container');
+            const deleteButton = document.createElement('div');
+        
+            // Set class and ID
+            deleteButton.className = 'big-delete-button';
+            deleteButton.id = 'big-delete';
+        
+            // Add microphone icon
+            deleteButton.innerHTML = '<i class="fas fa-trash button-icon"></i>';
+        
+            // Style the button
+            deleteButton.style.cursor = 'pointer';
+            deleteButton.style.width = '40px'; // Increase size
+            deleteButton.style.height = '40px'; // Increase size
+            deleteButton.style.borderRadius = '50%'; // Make it circular
+            deleteButton.style.backgroundColor = 'rgba(255, 255, 255, 0.2)'; // Transparent white background
+            deleteButton.style.backdropFilter = 'blur(10px)'; // Add blur effect
+            deleteButton.style.display = 'flex';
+            deleteButton.style.color = 'black'; // White icon color
+            deleteButton.style.justifyContent = 'center';
+            deleteButton.style.position = 'fixed';
+            deleteButton.style.bottom = '30px';
+            deleteButton.style.alignItems = 'center';
+            deleteButton.style.right = '30px';
+   
+            deleteButton.style.bottom = '120px';
+            deleteButton.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)'; // Add subtle shadow
+            deleteButton.style.transition = 'transform 0.3s, box-shadow 0.3s'; // Smooth transition for hover effect
+        
+            // Set the z-index to ensure it's on top
+            deleteButton.style.zIndex = '1000';
+        
+            // Append the button to the chat container
+            chatContainer.appendChild(deleteButton);
+        
+            // Add padding to the bottom of the chat container to make room for the button
+
+        
+            // Hover effect
+            deleteButton.addEventListener('mouseover', function() {
+                deleteButton.style.transform = 'scale(1.1)'; // Scale up on hover
+                deleteButton.style.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.3)'; // Increase shadow on hover
+            });
+        
+            deleteButton.addEventListener('mouseout', function() {
+                deleteButton.style.transform = 'scale(1)'; // Revert scale on hover out
+              
+        });
+        deleteButton.addEventListener('click', function() {
+            deleteAllChats();
+        });
+    }
+        
+        
+        function addTextInputPrompt() {
+            const inputContainer = document.querySelector('.input-container');
+            inputContainer.style.justifyContent = 'center';
+            
+            if (inputContainer) {
+                const promptText = document.createElement('div');
+                promptText.id = 'text-input-prompt';
+               
+                promptText.style.fontSize = '0.9em';
+                promptText.style.color = '#888';
+                promptText.style.cursor = 'pointer';
+                promptText.style.textAlign = 'center';
+                promptText.innerText = "Click to use text input.";
+                promptText.addEventListener('click', function() {
+                    const bigVoiceButton = document.getElementById('big-voice');
+                    const bigDeleteButton = document.getElementById('big-delete');
+                    bigVoiceButton.remove();
+                    bigDeleteButton.remove();
+                    restoreInputAndSendButton();
+                    //remove the padding
+                    const chatContainer = document.querySelector('.chat-container');
+                    chatContainer.style.paddingBottom = '0px';
+                    promptText.remove();
+
+                });
+        
+                inputContainer.appendChild(promptText);
+            }
+        }
+        
+        function restoreInputAndSendButton() {
+            const inputContainer = document.querySelector('.input-container');
+            removeElementsByIds(['voice'])
+        
+            if (inputContainer) {
+                // Create and append the input field
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.id = 'user-input';
+                input.placeholder = 'Type a message...';
+                inputContainer.appendChild(input);
+
+                // Create and append the voice input button
+                const voiceButton = document.createElement('button');
+                voiceButton.className = 'voice-button';
+                voiceButton.id = 'voice';
+                voiceButton.innerHTML = '<i class="fas fa-microphone button-icon"></i>';
+                voiceButton.addEventListener('click', function() {
+                    VoiceInput();
+                });
+                inputContainer.appendChild(voiceButton);
+
+                // Create and append the send button
+                const sendButton = document.createElement('button');
+                sendButton.className = 'send-button';
+                sendButton.id = 'send-button';
+                sendButton.innerHTML = '<i class="fas fa-paper-plane button-icon"></i>';
+                sendButton.addEventListener('click', function() {
+                    sendMessage();
+                });
+                inputContainer.appendChild(sendButton);
+                // Create and append the delete button
+                const deleteButton = document.createElement('button');
+                deleteButton.className = 'delete-button';
+                deleteButton.id = 'delete-button';
+                deleteButton.innerHTML = '<i class="fas fa-trash button-icon"></i>';
+                deleteButton.addEventListener('click', function() {
+                    deleteAllChats();
+                });
+                inputContainer.appendChild(deleteButton);
+            }
+        }
+        
+        
       let  latestBotResponse = '';
         function displayInitialBotMessage() {
             addBotMessage("Hi, I'm your virtual tutor for today. Please specify your Subject, topic, and your query for help.");
@@ -133,7 +341,11 @@ scrollChatToBottom(chatContainer);
                 stopSpeech();
             }
             addBotMessage("Hi, I'm your virtual tutor for today. Please specify your Subject, topic, and your query for help.")
-            reEnableInputElements();
+            //remove all buttons
+            removeInputAndSendButton();
+            addTextInputPrompt();
+            createBigVoiceButton();
+            CreateBigDeleteButton();
         };
 
 function displayActionButtons(message) {
@@ -189,7 +401,6 @@ appendButtonContainerToChat(buttonContainer);
             attachmentLabel.querySelector('input').addEventListener('change', function(event) {
                 const file = event.target.files[0];
                 if (file && file.type === 'image/png') {
-                    console.log(file);
                     addUserMessage(file.name);
                     uploadImage(file, previousMessage);
                 } else {
@@ -239,7 +450,6 @@ appendButtonContainerToChat(buttonContainer);
                 hideLoadingIndicator();
                 const botResponse = data.response || "I'm sorry, I couldn't process your request.";
                 addBotMessage(botResponse);
-                console.log(botResponse);
                 setMessage(botResponse);
                 displayActionButtons(previousMessage);
                 addBotMessage("Hint: Press the delete button to start again.");
@@ -275,20 +485,55 @@ fetch('/igcse/recommend-videos/', {
 })
 .catch(handleError);
 }
+function disableInputElements() {
+    const voiceButton = document.getElementById('voice');
+    const sendButton = document.getElementById('send-button');
+    const bigVoiceButton = document.getElementById('big-voice');
+    const textInputPrompt = document.getElementById('text-input-prompt');
 
+    if (voiceButton) {
+        voiceButton.disabled = true;
+    }
+    if (sendButton) {
+        sendButton.disabled = true;
+    }
 
+    if (bigVoiceButton) {
+        bigVoiceButton.style.pointerEvents = 'none';
+    } 
+    if (textInputPrompt) {
+        textInputPrompt.style.pointerEvents = 'none';
+    } 
+}
 
-        function disableInputElements() {
-            document.getElementById('voice').disabled = true;
-            document.getElementById('send-button').disabled = true;
-            document.getElementById('user-input').disabled = true;
-        }
+function reEnableInputElements() {
+    const voiceButton = document.getElementById('voice');
+    const sendButton = document.getElementById('send-button');
+    const userInput = document.getElementById('user-input');
+    const bigVoiceButton = document.getElementById('big-voice');
+    const textInputPrompt = document.getElementById('text-input-prompt');
 
-        function reEnableInputElements() {
-            document.getElementById('voice').disabled = false;
-            document.getElementById('send-button').disabled = false;
-            document.getElementById('user-input').disabled = false;
-        }
+    if (voiceButton) {
+        voiceButton.disabled = false;
+    }
+
+    if (sendButton) {
+        sendButton.disabled = false;
+    } 
+
+    if (userInput) {
+        userInput.disabled = false;
+    } 
+
+    if (bigVoiceButton) {
+        bigVoiceButton.style.pointerEvents = 'auto';
+      
+    } 
+    if (textInputPrompt) {
+        textInputPrompt.style.pointerEvents = 'auto';
+    } 
+    
+}
 
         function createButtonContainer() {
             const buttonContainer = document.createElement('div');
@@ -319,20 +564,22 @@ fetch('/igcse/recommend-videos/', {
             recognition.lang = 'en-US';
             recognition.interimResults = false;
             recognition.maxAlternatives = 1;
-
+        
             recognition.start();
-
+        
             recognition.onresult = function(event) {
                 const voiceMessage = event.results[0][0].transcript;
-                document.getElementById('user-input').value = voiceMessage;
-                sendMessage();
+                               
+                // Otherwise, process the message directly
+                    processUserMessage(voiceMessage);
+                
             };
-
+        
             recognition.onerror = function(event) {
                 alert('Voice input error: ' + event.error);
             };
         };
-
+        
         function getCookie(name) {
             const cookies = document.cookie ? document.cookie.split(';') : [];
             for (const cookie of cookies) {
@@ -378,7 +625,6 @@ fetch('/igcse/recommend-videos/', {
 function setSoothingVoice(utterance, voices) {
 // Attempt to find a more soothing voice if available
 const soothingVoice = voices.find(voice => voice.name.includes('Microsoft Zira'));
-console.log(soothingVoice);
 if (soothingVoice) {
     utterance.voice = soothingVoice;
 }
