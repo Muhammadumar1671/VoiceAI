@@ -4,3 +4,5 @@
 # Ignore the virtual environment directory
 venv
 
+
+db.sqlite3
