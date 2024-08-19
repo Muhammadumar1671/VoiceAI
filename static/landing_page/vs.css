@@ -7,11 +7,13 @@ body {
 }
 
 header {
- text-align: center;
-background-image: url(images/bg1.svg);
-background-repeat: no-repeat;
-background-size:cover;
-
+  background-image: white;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-size: contain; /* Fits the image within the header */
+  background-position: center;
+  width: 60;
+  overflow: hidden;
 }
 .header-icons{
     display: flex;
@@ -162,34 +164,38 @@ h2 {
 
 }
 .main-slider-section {
-    background-color: black;
-    color: white;
+  background-color: black;
+  color: white;
+  overflow: hidden; /* Hide any overflow to prevent the slider from expanding the width */
+  position: relative;
+  width: 100%;
 }
 
 .slider {
-    overflow: hidden;
-    white-space: nowrap;
-    animation: slide-right-to-left 15s linear infinite;
+  display: flex; /* Use flexbox for proper alignment */
+  overflow: hidden;
+  white-space: nowrap;
+  animation: slide-right-to-left 15s linear infinite;
 }
 
 .slider img {
-    max-height: 50px;
-    margin: 0 20px;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
+  max-height: 50px;
+  margin: 0 20px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
 }
 
 .slider img:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 @keyframes slide-right-to-left {
-    0% {
-        transform: translateX(100%);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
+  0% {
+      transform: translateX(100%);
+  }
+  100% {
+      transform: translateX(-100%);
+  }
 }
 
 

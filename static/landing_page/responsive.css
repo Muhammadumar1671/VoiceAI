@@ -153,3 +153,161 @@ nav ul li a {
         max-width: 300px;
     }
 }
+
+
+@media only screen and (max-width: 768px) {
+    .transparent-container {
+      width: 100% ;/* Adjust as needed */
+      max-width: 380px; /* Optional */
+      margin: 0 auto; /* Center the container */
+    }
+
+    .iframeBot {
+      width: 100%;
+      height: 100%; /* Adjust height as needed */
+    }
+
+    #toggle-transparent-btn {
+      position: relative;
+      top: 0;
+      right: 0;
+      margin-top: 10px; /* Add some space above the button */
+      display: block;
+      width:
+       100%; /* Make the button full width, if desired */
+    }
+    .FeatureImg{
+      width: 100%;
+      align-items: center;
+    }
+    .card3 {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .profile img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .profile p {
+    font-size: 12px;
+  }
+
+  .card3 p {
+    font-size: 12px;
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Show ellipsis for overflow text */
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+  .header h1 {
+    font-size: 20px;
+  }
+
+  .switch-label {
+    font-size: 14px;
+  }
+
+  .comparison-box {
+    flex-direction: column;
+    gap: 10px; /* Reduce space between cards on mobile */
+  }
+
+  .card6 {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .card6 img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .card6 h2 {
+    font-size: 16px;
+  }
+
+  .card6 p {
+    font-size: 12px;
+  }
+
+  .metrics .metric span {
+    font-size: 12px;
+  }
+
+  .metrics .metric strong {
+    font-size: 14px;
+  }
+
+  .inner-icon2 img, .inner-icon3 img {
+    width: 30px; /* Smaller icon size on mobile */
+    height: 30px; /* Smaller icon size on mobile */
+  }
+  
+  .code-container code {
+        font-size: 12px;
+    }
+}
+
+.code-container code {
+    
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+.main-pricing-section {
+        padding: 15px 0;
+    }
+
+    .pricing-circle {
+        max-width: 350px;
+        padding: 10px;
+    }
+
+    .inner-content4 h2 {
+        font-size: 18px;
+    }
+
+    .inner-content4 p {
+        font-size: 13px;
+    }
+
+    .app-features span {
+        font-size: 11px;
+    }
+
+    .btn8 {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+@media (max-width: 480px) {
+    .main-pricing-section {
+        padding: 10px 0;
+    }
+
+    .pricing-circle {
+        max-width: 280px;
+        padding: 8px;
+    }
+
+    .inner-content4 h2 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .inner-content4 p {
+        font-size: 12px;
+    }
+
+    .app-features span {
+        font-size: 10px;
+    }
+
+    .btn8 {
+        font-size: 10px;
+        padding: 4px 8px;
+        margin: 5px;
+    }
+}

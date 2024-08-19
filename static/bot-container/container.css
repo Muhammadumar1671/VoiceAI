@@ -55,6 +55,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+        
         .messages-container {
             flex: 1; /* This allows the messages to grow and take up available space */
             width: 100%;
