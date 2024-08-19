@@ -106,8 +106,11 @@ nav ul li a {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    header nav {
+.header nav {
+        /* make its content small */
         flex-direction: column;
+        align-items: center;
+        
     }
 
     .header-icons {

@@ -270,37 +270,65 @@
             hideLoadingIndicator();
             addBotMessage("There was an error processing your request. Please try again.");
             console.error('Error:', error);
-        }
-
+        }   
         function addBotMessage(message) {
-const chatContainer = document.querySelector('.chat-container');
-const messageElement = document.createElement('div');
-messageElement.className = 'message bot-message';
-messageElement.innerText = message;
-
-const ttsButton = document.createElement('button');
-ttsButton.className = 'tts-button';
-const icon = document.createElement('i');
-icon.className = 'fas fa-volume-up';
-ttsButton.appendChild(icon);
-
-ttsButton.onclick = function() {
-    if (icon.classList.contains('fa-volume-up')) {
-        speakMessage(message);
-        icon.classList.remove('fa-volume-up');
-        icon.classList.add('fa-volume-mute');
-    } else {
-        stopSpeech();
-        icon.classList.remove('fa-volume-mute');
-        icon.classList.add('fa-volume-up');
-    }
-};
-
-// Append TTS button to the message element
-messageElement.appendChild(ttsButton);
-chatContainer.appendChild(messageElement);
-scrollChatToBottom(chatContainer);
-}
+            const chatContainer = document.querySelector('.chat-container');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'bot-message';
+            
+            const textElement = document.createElement('span');  // To hold the text content
+            const ttsButton = document.createElement('button');
+            ttsButton.className = 'tts-button';
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-volume-up';
+            ttsButton.appendChild(icon);
+            
+            ttsButton.onclick = function() {
+                if (icon.classList.contains('fa-volume-up')) {
+                    speakMessage(message);
+                    icon.classList.remove('fa-volume-up');
+                    icon.classList.add('fa-volume-mute');
+                } else {
+                    stopSpeech();
+                    icon.classList.remove('fa-volume-mute');
+                    icon.classList.add('fa-volume-up');
+                }
+            };
+            
+            messageElement.appendChild(textElement);  // Append text first
+            messageElement.appendChild(ttsButton);    // Then append the TTS button
+            chatContainer.appendChild(messageElement);
+            
+            const lines = message.split('\n'); // Split the message into lines
+        
+            let lineIndex = 0;
+            let charIndex = 0;
+        
+            function typeMessage() {
+                if (lineIndex < lines.length) {
+                    if (charIndex < lines[lineIndex].length) {
+                        const charNode = document.createTextNode(lines[lineIndex].charAt(charIndex));
+                        textElement.appendChild(charNode);
+                        charIndex++;
+                        setTimeout(typeMessage, 10); // Adjust speed of typing here
+                    } else {
+                        textElement.appendChild(document.createElement('br')); // Add line break after a line is done
+                        lineIndex++;
+                        charIndex = 0;
+                        setTimeout(typeMessage, 10); // Adjust speed of typing here
+                    }
+                } else {
+                    // Message typing finished, show the TTS button
+                    ttsButton.style.display = 'inline-block';
+                }
+            }
+        
+            ttsButton.style.display = 'none'; // Hide TTS button until typing is complete
+            typeMessage();
+        }
+        
+        
+        
 
 
         function addUserMessage(message) {
@@ -425,17 +453,17 @@ appendButtonContainerToChat(buttonContainer);
                 body: formData
             })
             .then(response => response.json())
-            .then(data => {
+            .then(async data => {
                 hideLoadingIndicator();
                 const botResponse = data.response || "I'm sorry, I couldn't process your request.";
-                addBotMessage(botResponse);
+                await addBotMessageAsync(botResponse)
                 displayActionButtons(previousMessage);
                 addBotMessage("Hint: Press the delete button to start again.");
             })
             .catch(handleError);
         }
 
-        function requestExplanation(previousMessage) {
+        function  requestExplanation(previousMessage) {
             showLoadingIndicator();
             fetch('/igcse/igcse-response/', {
                 method: 'POST',
@@ -446,10 +474,10 @@ appendButtonContainerToChat(buttonContainer);
                 body: JSON.stringify({ question: previousMessage })
             })
             .then(response => response.json())
-            .then(data => {
+            .then(async data => {
                 hideLoadingIndicator();
                 const botResponse = data.response || "I'm sorry, I couldn't process your request.";
-                addBotMessage(botResponse);
+                await addBotMessageAsync(botResponse)
                 setMessage(botResponse);
                 displayActionButtons(previousMessage);
                 addBotMessage("Hint: Press the delete button to start again.");
@@ -457,6 +485,74 @@ appendButtonContainerToChat(buttonContainer);
             })
             .catch(handleError);
         }
+
+        function addBotMessageAsync(message) {
+            console.log("addBotMessageAsync");
+            return new Promise((resolve) => {
+                function typeMessage() {
+                    const chatContainer = document.querySelector('.chat-container');
+                    const messageElement = document.createElement('div');
+                    messageElement.className = 'bot-message';
+        
+                    const textElement = document.createElement('span');  // To hold the text content
+                    const ttsButton = document.createElement('button');
+                    ttsButton.className = 'tts-button';
+                    const icon = document.createElement('i');
+                    icon.className = 'fas fa-volume-up';
+                    ttsButton.appendChild(icon);
+        
+                    ttsButton.onclick = function() {
+                        if (icon.classList.contains('fa-volume-up')) {
+                            speakMessage(message);
+                            icon.classList.remove('fa-volume-up');
+                            icon.classList.add('fa-volume-mute');
+                        } else {
+                            stopSpeech();
+                            icon.classList.remove('fa-volume-mute');
+                            icon.classList.add('fa-volume-up');
+                        }
+                    };
+        
+                    messageElement.appendChild(textElement);  // Append text first
+                    messageElement.appendChild(ttsButton);    // Then append the TTS button
+                    chatContainer.appendChild(messageElement);
+        
+                    const lines = message.split('\n'); // Split the message into lines
+                    let lineIndex = 0;
+                    let charIndex = 0;
+        
+                    function typeCharacter() {
+                        if (lineIndex < lines.length) {
+                            if (charIndex < lines[lineIndex].length) {
+                                const char = lines[lineIndex].charAt(charIndex);
+                                if (char === '\n') {
+                                    textElement.appendChild(document.createElement('br')); // Add line break
+                                } else {
+                                    textElement.appendChild(document.createTextNode(char)); // Append text character
+                                }
+                                charIndex++;
+                                setTimeout(typeCharacter, 10); // Adjust speed of typing here
+                            } else {
+                                textElement.appendChild(document.createElement('br')); // Add line break
+                                lineIndex++;
+                                charIndex = 0;
+                                setTimeout(typeCharacter, 10); // Adjust speed of typing here
+                            }
+                        } else {
+                            // Typing is complete, show the TTS button and resolve the promise
+                            ttsButton.style.display = 'inline-block';
+                            resolve(); // Resolve the promise here
+                        }
+                    }
+        
+                    ttsButton.style.display = 'none'; // Hide TTS button until typing is complete
+                    typeCharacter(); // Start typing
+                }
+        
+                typeMessage();
+            });
+        }
+        
         function requestRecommendation(latestBotResponse) {
 showLoadingIndicator();
 fetch('/igcse/recommend-videos/', {
@@ -468,16 +564,17 @@ fetch('/igcse/recommend-videos/', {
     body: JSON.stringify({ question: latestBotResponse })
 })
 .then(response => response.json())
-.then(data => {
+.then( async data => {
     hideLoadingIndicator();
     if (data.links && data.links.length > 0) {
         // Concatenate all the links into a single string with a one-line gap between each link
         const linksMessage = data.links.join('\n\n');
-        addBotMessage("Here are some recommended videos:\n\n" + linksMessage);
+        await addBotMessageAsync("Here are some relevant videos:\n\n" + linksMessage);
+
     } else {
         // If no links are found, display the fallback bot response
         const botResponse = data.response || "I'm sorry, I couldn't find any relevant videos.";
-        addBotMessage(botResponse);
+        await addBotMessageAsync(botResponse)
         speakMessage(botResponse);
     }
     displayActionButtons(latestBotResponse);
@@ -562,23 +659,101 @@ function reEnableInputElements() {
         window.VoiceInput = function() {
             const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
             recognition.lang = 'en-US';
-            recognition.interimResults = false;
+            recognition.interimResults = true;
             recognition.maxAlternatives = 1;
+        
+            let messageElement = null;
+            let finalTranscript = '';
         
             recognition.start();
         
             recognition.onresult = function(event) {
-                const voiceMessage = event.results[0][0].transcript;
-                               
-                // Otherwise, process the message directly
-                    processUserMessage(voiceMessage);
-                
+                let interimTranscript = '';
+        
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        finalTranscript += event.results[i][0].transcript;
+                    } else {
+                        interimTranscript += event.results[i][0].transcript;
+                    }
+                }
+        
+                updateRealTimeMessage(finalTranscript + interimTranscript);
+            };
+        
+            recognition.onend = function() {
+                showSendDeleteOptions();
             };
         
             recognition.onerror = function(event) {
                 alert('Voice input error: ' + event.error);
             };
+        
+            function updateRealTimeMessage(text) {
+                if (!messageElement) {
+                    messageElement = addUserMessage(text);
+                    messageElement.classList.add('pending-message');
+                } else {
+                    messageElement.innerText = text; // Update the existing message
+                }
+            }
+        
+            function showSendDeleteOptions() {
+                if (messageElement) {
+                    // Create send (tick) and delete (cross) icons
+                    const sendIcon = document.createElement('span');
+                    sendIcon.className = 'send-icon';
+                    sendIcon.innerText = '✓'; // You can replace this with an actual icon
+                    sendIcon.onclick = function() {
+                        processUserMessage(messageElement.innerText);
+                        messageElement.classList.remove('pending-message');
+                        removeIcons(messageElement);
+                    };
+        
+                    const deleteIcon = document.createElement('span');
+                    deleteIcon.className = 'delete-icon';
+                    deleteIcon.innerText = '✗'; // You can replace this with an actual icon
+                    deleteIcon.onclick = function() {
+                        messageElement.remove(); // Remove the message entirely
+                        messageElement = null; // Reset the message element
+                    };
+                    sendIcon.style.cursor = 'pointer';
+                    deleteIcon.style.cursor = 'pointer';
+                    sendIcon.style.marginRight = '10px';
+        
+                    // Append the icons to the message element
+                    messageElement.appendChild(sendIcon);
+                    messageElement.appendChild(deleteIcon);
+                }
+            }
+        
+            function removeIcons(messageElement) {
+                const sendIcon = messageElement.querySelector('.send-icon');
+                const deleteIcon = messageElement.querySelector('.delete-icon');
+                if (sendIcon) sendIcon.remove();
+                if (deleteIcon) deleteIcon.remove();
+            }
+        
+            function processUserMessage(message) {
+                // Remove the pending-message class before processing
+                if (messageElement) {
+                    messageElement.classList.remove('pending-message');
+                }
+                showLoadingIndicator();
+                sendEducationalCheckRequest(message);
+            }
+        
+            function addUserMessage(message) {
+                const chatContainer = document.querySelector('.chat-container');
+                const messageElement = document.createElement('div');
+                messageElement.className = 'message user-message';
+                messageElement.innerText = message;
+                chatContainer.appendChild(messageElement);
+                scrollChatToBottom(chatContainer);
+                return messageElement; // Return the message element for further use
+            }
         };
+        
         
         function getCookie(name) {
             const cookies = document.cookie ? document.cookie.split(';') : [];
