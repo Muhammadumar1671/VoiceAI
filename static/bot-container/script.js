@@ -463,18 +463,12 @@ function addAttachmentIcon(previousMessage) {
     chatContainer.appendChild(captureLabel);
 
     scrollChatToBottom(chatContainer);
-
-    function removeButtons() {
-        chatContainer.removeChild(attachmentLabel);
-        chatContainer.removeChild(captureLabel);
-    }
-
     // Event listener for image file upload
     attachmentLabel.querySelector('input').addEventListener('change', function(event) {
         const file = event.target.files[0];
         if (file) {
             addUserMessage(file.name);
-            uploadImage(file, previousMessage).then(removeButtons);
+            uploadImage(file, previousMessage);
         } else {
             addBotMessage("Please upload a valid image.");
         }
@@ -485,7 +479,7 @@ function addAttachmentIcon(previousMessage) {
         const file = event.target.files[0];
         if (file) {
             addUserMessage(file.name);
-            uploadImage(file, previousMessage).then(removeButtons);
+            uploadImage(file, previousMessage);
         } else {
             addBotMessage("Please capture a valid image.");
         }
@@ -494,10 +488,15 @@ function addAttachmentIcon(previousMessage) {
 
 
         function uploadImage(file, previousMessage) {
-            const attachmentLabel = document.querySelector('.attachment-label');
-            const captureButton = document.querySelector('.capture-button');
-            captureButton.remove();
-            attachmentLabel.remove();
+            const attachment = document.querySelector('.attachment-label');
+            const capture = document.querySelector('.capture-label');
+            if (attachment) {
+                attachment.remove();
+            }
+            if (capture) {
+                capture.remove();
+            }
+            
             const formData = new FormData();
             formData.append('image', file);
             formData.append('question', previousMessage);
