@@ -434,7 +434,7 @@ function addAttachmentIcon(previousMessage) {
     `;
 
     const hoverStyle = `
-        .attachment-label:hover, .capture-button:hover {
+        .attachment-label:hover, .capture-label:hover {
             background-color: rgba(0, 0, 0, 0.1);
             border-radius: 5px;
         }
@@ -452,26 +452,21 @@ function addAttachmentIcon(previousMessage) {
     attachmentLabel.innerHTML = '<input type="file" accept="image/*" style="display:none;">📎 Attach Image';
     attachmentLabel.style.cssText = buttonStyle;
 
-    // Create capture button for capturing image using camera
-    const captureButton = document.createElement('button');
-    captureButton.className = 'capture-button';
-    captureButton.innerText = '📷 Capture Image';
-    captureButton.style.cssText = buttonStyle;
-
-    // Create video element for displaying camera feed
-    const videoElement = document.createElement('video');
-    videoElement.style.display = 'none'; // Initially hidden
+    // Create label for capturing image using camera
+    const captureLabel = document.createElement('label');
+    captureLabel.className = 'capture-label';
+    captureLabel.innerHTML = '<input type="file" accept="image/*" capture="camera" style="display:none;">📷 Capture Image';
+    captureLabel.style.cssText = buttonStyle;
 
     // Append elements to the chat container
     chatContainer.appendChild(attachmentLabel);
-    chatContainer.appendChild(captureButton);
-    chatContainer.appendChild(videoElement);
+    chatContainer.appendChild(captureLabel);
 
     scrollChatToBottom(chatContainer);
 
     function removeButtons() {
         chatContainer.removeChild(attachmentLabel);
-        chatContainer.removeChild(captureButton);
+        chatContainer.removeChild(captureLabel);
     }
 
     // Event listener for image file upload
@@ -486,36 +481,16 @@ function addAttachmentIcon(previousMessage) {
     });
 
     // Event listener for capturing image using camera
-    captureButton.addEventListener('click', function() {
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(function(stream) {
-                videoElement.style.display = 'block';
-                videoElement.srcObject = stream;
-
-                const canvas = document.createElement('canvas');
-                const context = canvas.getContext('2d');
-
-                videoElement.addEventListener('click', function() {
-                    canvas.width = videoElement.videoWidth;
-                    canvas.height = videoElement.videoHeight;
-                    context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-
-                    canvas.toBlob(function(blob) {
-                        addUserMessage('Captured Image');
-                        uploadImage(blob, previousMessage).then(removeButtons);
-                    });
-
-                    stream.getTracks().forEach(track => track.stop());
-                    videoElement.style.display = 'none';
-                });
-            })
-            .catch(function(err) {
-                addBotMessage("Unable to access the camera.");
-            });
+    captureLabel.querySelector('input').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            addUserMessage(file.name);
+            uploadImage(file, previousMessage).then(removeButtons);
+        } else {
+            addBotMessage("Please capture a valid image.");
+        }
     });
 }
-
-
 
 
         function uploadImage(file, previousMessage) {
