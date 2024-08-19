@@ -42,7 +42,7 @@ class ProductClassifier:
         prompt_template = """
         Role play as a prompt engineer and create a prompt. The prompt's purpose is to guide students.
         The student's requirements are {text}. Create dynamic prompt for the llm so that the llm can role play as per the requirements of the user. For example: You are are Physics teacher.
-        Keep the prompt short and simple.
+        Keep the prompt short and simple. Give ONLY the prompt as response.
         """
         inputs = {"text": text}
         response = self.classify_text(inputs, prompt_template)

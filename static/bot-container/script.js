@@ -418,27 +418,110 @@ appendButtonContainerToChat(buttonContainer);
 }
 
 
-        function addAttachmentIcon(previousMessage) {
-            const chatContainer = document.querySelector('.chat-container');
-            const attachmentLabel = document.createElement('label');
-            attachmentLabel.className = 'attachment-label';
-            attachmentLabel.innerHTML = '<input type="file" accept="image/png" style="display:none;">📎 Attach PNG';
-            chatContainer.appendChild(attachmentLabel);
-            scrollChatToBottom(chatContainer);  
+function addAttachmentIcon(previousMessage) {
+    const chatContainer = document.querySelector('.chat-container');
 
-            attachmentLabel.querySelector('input').addEventListener('change', function(event) {
-                const file = event.target.files[0];
-                if (file && file.type === 'image/png') {
-                    addUserMessage(file.name);
-                    uploadImage(file, previousMessage);
-                } else {
-                    addBotMessage("Please upload a valid PNG image.");
-                }
-            });
+    // Common CSS classes for buttons
+    const buttonStyle = `
+        background: transparent;
+        border: none;
+        color: #007bff;
+        cursor: pointer;
+        font-size: 16px;
+        margin-right: 10px;
+        padding: 5px 10px;
+        transition: background-color 0.3s;
+    `;
+
+    const hoverStyle = `
+        .attachment-label:hover, .capture-button:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
         }
+    `;
+
+    // Append hover styles to the document head
+    const styleSheet = document.createElement("style");
+    styleSheet.type = "text/css";
+    styleSheet.innerText = hoverStyle;
+    document.head.appendChild(styleSheet);
+
+    // Create attachment label for uploading images
+    const attachmentLabel = document.createElement('label');
+    attachmentLabel.className = 'attachment-label';
+    attachmentLabel.innerHTML = '<input type="file" accept="image/*" style="display:none;">📎 Attach Image';
+    attachmentLabel.style.cssText = buttonStyle;
+
+    // Create capture button for capturing image using camera
+    const captureButton = document.createElement('button');
+    captureButton.className = 'capture-button';
+    captureButton.innerText = '📷 Capture Image';
+    captureButton.style.cssText = buttonStyle;
+
+    // Create video element for displaying camera feed
+    const videoElement = document.createElement('video');
+    videoElement.style.display = 'none'; // Initially hidden
+
+    // Append elements to the chat container
+    chatContainer.appendChild(attachmentLabel);
+    chatContainer.appendChild(captureButton);
+    chatContainer.appendChild(videoElement);
+
+    scrollChatToBottom(chatContainer);
+
+    function removeButtons() {
+        chatContainer.removeChild(attachmentLabel);
+        chatContainer.removeChild(captureButton);
+    }
+
+    // Event listener for image file upload
+    attachmentLabel.querySelector('input').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            addUserMessage(file.name);
+            uploadImage(file, previousMessage).then(removeButtons);
+        } else {
+            addBotMessage("Please upload a valid image.");
+        }
+    });
+
+    // Event listener for capturing image using camera
+    captureButton.addEventListener('click', function() {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                videoElement.style.display = 'block';
+                videoElement.srcObject = stream;
+
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+
+                videoElement.addEventListener('click', function() {
+                    canvas.width = videoElement.videoWidth;
+                    canvas.height = videoElement.videoHeight;
+                    context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+
+                    canvas.toBlob(function(blob) {
+                        addUserMessage('Captured Image');
+                        uploadImage(blob, previousMessage).then(removeButtons);
+                    });
+
+                    stream.getTracks().forEach(track => track.stop());
+                    videoElement.style.display = 'none';
+                });
+            })
+            .catch(function(err) {
+                addBotMessage("Unable to access the camera.");
+            });
+    });
+}
+
+
+
 
         function uploadImage(file, previousMessage) {
             const attachmentLabel = document.querySelector('.attachment-label');
+            const captureButton = document.querySelector('.capture-button');
+            captureButton.remove();
             attachmentLabel.remove();
             const formData = new FormData();
             formData.append('image', file);

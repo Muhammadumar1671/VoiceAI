@@ -11,7 +11,7 @@ def initialize_environment(api_key):
     os.environ['OPENAI_API_KEY'] = api_key
 
 def LLM():
-    return ChatOpenAI(temperature=0.5, max_tokens= 800, model="gpt-4o")
+    return ChatOpenAI(temperature=0.3, max_tokens= 800, model="gpt-4o")
 
 def load_vector_index(path):
     try:
@@ -27,7 +27,7 @@ def load_vector_index(path):
 def igcse_retriever(vector_index, prompt):   
     custom_prompt_template = prompt + f"""
     Context: {{context}}
-    Only use the information provided in the context and provide simple and short answers.
+    Only use the information provided in the context to provide simple and short answers. If the above text is irrelevant, respond with 'I don't know'.
     """
 
     custom_prompt = PromptTemplate(input_variables=["context"], template=custom_prompt_template)
