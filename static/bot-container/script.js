@@ -783,16 +783,17 @@ function reEnableInputElements() {
                     alert('Voice input error: ' + event.error);
                 };
         
-                if (selectedDeviceId) {
-                    const constraints = { audio: { deviceId: { exact: selectedDeviceId } } };
-                    navigator.mediaDevices.getUserMedia(constraints).then(() => {
-                        recognition.start();
-                    }).catch(error => {
-                        alert('Error accessing the selected microphone: ' + error);
-                    });
-                } else {
-                    recognition.start();
-                }
+                recognition.start();
+            }
+        
+            // Request microphone access before listing devices
+            function requestMicrophoneAccess() {
+                const constraints = { audio: true };
+                navigator.mediaDevices.getUserMedia(constraints).then(() => {
+                    askUserToSelectMic();
+                }).catch(error => {
+                    alert('Microphone access denied or error: ' + error);
+                });
             }
         
             // List available microphones and let the user choose if not already selected
@@ -883,7 +884,7 @@ function reEnableInputElements() {
         
             // Call to ask the user to select their microphone only if not selected previously
             if (!selectedDeviceId) {
-                askUserToSelectMic();
+                requestMicrophoneAccess();
             } else {
                 initializeRecognition();
             }
@@ -954,8 +955,6 @@ function reEnableInputElements() {
                 return messageElement;
             }
         };
-        
-        
         
         function getCookie(name) {
             const cookies = document.cookie ? document.cookie.split(';') : [];
