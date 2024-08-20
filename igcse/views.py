@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated , AllowAny
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 import json
-from .dynamic_analysis import igcse_prompt_generate, check_educationRelated , youtubelinks,extract_words
+from .dynamic_analysis import igcse_prompt_generate, check_educationRelated , youtubelinks,extract_words, answer_question
 from .chat_model import get_igcse_response
 from .image_analysis import get_image_analysis
 
@@ -99,3 +99,12 @@ def recommend_links(request):
         
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def question_answer(request):
+    question = request.data.get('question')
+    answer = answer_question(question)
+    return Response({'response':answer }, status=status.HTTP_200_OK)
+    

@@ -4,6 +4,7 @@ from langchain.chains import LLMChain
 from langchain.prompts.chat import ChatPromptTemplate
 from django.http import JsonResponse
 import requests
+from .chat_model import cleanmessage
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -60,6 +61,14 @@ class ProductClassifier:
             return answer == 'yes'
         else:
             raise ValueError("Unexpected response from the model")
+    def answer_question(self, question: str) -> str:
+        prompt_template = """
+        Being an igcse instructor, answer the question below and provide detailed explanations.
+        Question: "{question}"
+        """
+        inputs = {"question": question}
+        response = self.classify_text(inputs, prompt_template)
+        return response
     
 
 
@@ -119,3 +128,10 @@ def extract_words(text):
     keywords = classifier.extract_keywords(text)
     return keywords
 
+
+
+def answer_question(question):
+    api_key = os.getenv('OPENAI_API_KEY')
+    classifier = ProductClassifier(api_key)
+    answer = classifier.answer_question(question)
+    return cleanmessage(answer)

@@ -6,6 +6,8 @@
         addTextInputPrompt();
         createBigVoiceButton();
         CreateBigDeleteButton();
+        //clear any in cache data
+        localStorage.removeItem('selectedDeviceId');
         
         function removeElementsByIds(ids) {
             ids.forEach(function(id) {
@@ -239,8 +241,15 @@
         function processUserMessage(message) {
             addUserMessage(message);
             showLoadingIndicator();
+            const attachment = document.querySelector('.attachment-label');
+            if (attachment) {
+                requestQuestionAnswer(message)
+            }
+            else{
             sendEducationalCheckRequest(message);
+            }
         }
+    
 
         function sendEducationalCheckRequest(message) {
             fetch('/igcse/is-educational/', {
@@ -374,6 +383,8 @@
             addTextInputPrompt();
             createBigVoiceButton();
             CreateBigDeleteButton();
+            localStorage.removeItem('selectedDeviceId');
+
         };
 
 function displayActionButtons(message) {
@@ -419,7 +430,9 @@ appendButtonContainerToChat(buttonContainer);
 
 
 function addAttachmentIcon(previousMessage) {
-    const chatContainer = document.querySelector('.chat-container');
+    chatContainer = document.querySelector('.chat-container');
+    reEnableInputElements();
+
 
     // Common CSS classes for buttons
     const buttonStyle = `
@@ -496,7 +509,6 @@ function addAttachmentIcon(previousMessage) {
             if (capture) {
                 capture.remove();
             }
-            
             const formData = new FormData();
             formData.append('image', file);
             formData.append('question', previousMessage);
@@ -610,7 +622,7 @@ function addAttachmentIcon(previousMessage) {
             });
         }
         
-        function requestRecommendation(latestBotResponse) {
+function requestRecommendation(latestBotResponse) {
 showLoadingIndicator();
 fetch('/igcse/recommend-videos/', {
     method: 'POST',
@@ -658,6 +670,32 @@ function disableInputElements() {
     if (textInputPrompt) {
         textInputPrompt.style.pointerEvents = 'none';
     } 
+}
+
+function requestQuestionAnswer(message){
+    const attachmentLabel = document.querySelector('.attachment-label');
+    const captureLabel = document.querySelector('.capture-label');
+    attachmentLabel.remove();
+    captureLabel.remove();
+    fetch('/igcse/answer-question/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({ question: message })
+    })
+    .then(response => response.json())
+    .then(async data => {
+        hideLoadingIndicator();
+        const botResponse = data.response || "I'm sorry, I couldn't process your request.";
+        await addBotMessageAsync(botResponse)
+        setMessage(botResponse);
+        displayActionButtons(message);
+        addBotMessage("Hint: Press the delete button to start again.");
+        
+    })
+    .catch(handleError);
 }
 
 function reEnableInputElements() {
@@ -712,55 +750,158 @@ function reEnableInputElements() {
             chatContainer.appendChild(container);
             scrollChatToBottom(chatContainer);
         }
-
         window.VoiceInput = function() {
-            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-            recognition.lang = 'en-US';
-            recognition.interimResults = true;
-            recognition.maxAlternatives = 1;
-        
+            let recognition = null;
+            let selectedDeviceId = localStorage.getItem('selectedDeviceId'); // Retrieve saved microphone ID
             let messageElement = null;
             let finalTranscript = '';
         
-            recognition.start();
+            // Initialize voice recognition with the selected microphone
+            function initializeRecognition() {
+                recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                recognition.lang = 'en-US';
+                recognition.interimResults = true;
+                recognition.maxAlternatives = 1;
         
-            recognition.onresult = function(event) {
-                let interimTranscript = '';
-        
-                for (let i = event.resultIndex; i < event.results.length; ++i) {
-                    if (event.results[i].isFinal) {
-                        finalTranscript += event.results[i][0].transcript;
-                    } else {
-                        interimTranscript += event.results[i][0].transcript;
+                recognition.onresult = function(event) {
+                    let interimTranscript = '';
+                    for (let i = event.resultIndex; i < event.results.length; ++i) {
+                        if (event.results[i].isFinal) {
+                            finalTranscript += event.results[i][0].transcript;
+                        } else {
+                            interimTranscript += event.results[i][0].transcript;
+                        }
                     }
+                    updateRealTimeMessage(finalTranscript + interimTranscript);
+                };
+        
+                recognition.onend = function() {
+                    showSendDeleteOptions();
+                };
+        
+                recognition.onerror = function(event) {
+                    alert('Voice input error: ' + event.error);
+                };
+        
+                if (selectedDeviceId) {
+                    const constraints = { audio: { deviceId: { exact: selectedDeviceId } } };
+                    navigator.mediaDevices.getUserMedia(constraints).then(() => {
+                        recognition.start();
+                    }).catch(error => {
+                        alert('Error accessing the selected microphone: ' + error);
+                    });
+                } else {
+                    recognition.start();
                 }
+            }
         
-                updateRealTimeMessage(finalTranscript + interimTranscript);
-            };
+            // List available microphones and let the user choose if not already selected
+            function askUserToSelectMic() {
+                navigator.mediaDevices.enumerateDevices().then(devices => {
+                    const audioDevices = devices.filter(device => device.kind === 'audioinput');
+                    if (audioDevices.length > 0) {
+                        const modal = document.createElement('div');
+                        modal.id = 'micSelectionModal';
+                        modal.style.position = 'fixed';
+                        modal.style.left = '0';
+                        modal.style.top = '0';
+                        modal.style.width = '100%';
+                        modal.style.height = '100%';
+                        modal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'; // Semi-transparent background
+                        modal.style.backdropFilter = 'blur(10px)'; // Blurred background
+                        modal.style.display = 'flex';
+                        modal.style.justifyContent = 'center';
+                        modal.style.alignItems = 'center';
+                        modal.style.zIndex = '1000';
         
-            recognition.onend = function() {
-                showSendDeleteOptions();
-            };
+                        const modalContent = document.createElement('div');
+                        modalContent.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                        modalContent.style.padding = '20px';
+                        modalContent.style.borderRadius = '8px';
+                        modalContent.style.textAlign = 'center';
+                        modalContent.style.width = '300px';
+                        modalContent.style.boxShadow = '0px 4px 6px rgba(0, 0, 0, 0.1)';
         
-            recognition.onerror = function(event) {
-                alert('Voice input error: ' + event.error);
-            };
+                        const title = document.createElement('h3');
+                        title.innerText = 'Select a Microphone';
+                        title.style.marginBottom = '15px';
+                        title.style.color = 'white';
+        
+                        const micSelectionMenu = document.createElement('select');
+                        micSelectionMenu.id = 'micSelection';
+                        micSelectionMenu.style.width = '100%';
+                        micSelectionMenu.style.padding = '10px';
+                        micSelectionMenu.style.marginBottom = '15px';
+                        micSelectionMenu.style.borderRadius = '4px';
+                        micSelectionMenu.style.border = '1px solid #ccc';
+        
+                        audioDevices.forEach(device => {
+                            const option = document.createElement('option');
+                            option.value = device.deviceId;
+                            option.text = device.label || `Microphone ${audioDevices.indexOf(device) + 1}`;
+                            micSelectionMenu.appendChild(option);
+                        });
+        
+                        const selectButton = document.createElement('button');
+                        selectButton.innerText = 'Select Microphone';
+                        selectButton.style.width = '100%';
+                        selectButton.style.padding = '10px';
+                        selectButton.style.backgroundColor = '#000000'; // Black button
+                        selectButton.style.color = 'white';
+                        selectButton.style.border = 'none';
+                        selectButton.style.borderRadius = '4px';
+                        selectButton.style.cursor = 'pointer';
+                        selectButton.style.boxShadow = '0px 4px 6px rgba(0, 0, 0, 0.2)';
+                        selectButton.style.transition = 'background-color 0.3s';
+        
+                        selectButton.onmouseover = function() {
+                            selectButton.style.backgroundColor = '#333333'; // Darker black on hover
+                        };
+                        selectButton.onmouseout = function() {
+                            selectButton.style.backgroundColor = '#000000'; // Return to black on mouse out
+                        };
+        
+                        selectButton.onclick = function() {
+                            selectedDeviceId = micSelectionMenu.value;
+                            localStorage.setItem('selectedDeviceId', selectedDeviceId); // Save the selected mic ID
+                            document.body.removeChild(modal);
+                            initializeRecognition(); // Start voice recognition after selecting mic
+                        };
+        
+                        modalContent.appendChild(title);
+                        modalContent.appendChild(micSelectionMenu);
+                        modalContent.appendChild(selectButton);
+                        modal.appendChild(modalContent);
+                        document.body.appendChild(modal);
+                    } else {
+                        alert('No microphones available');
+                    }
+                }).catch(error => {
+                    alert('Error listing microphones: ' + error);
+                });
+            }
+        
+            // Call to ask the user to select their microphone only if not selected previously
+            if (!selectedDeviceId) {
+                askUserToSelectMic();
+            } else {
+                initializeRecognition();
+            }
         
             function updateRealTimeMessage(text) {
                 if (!messageElement) {
                     messageElement = addUserMessage(text);
                     messageElement.classList.add('pending-message');
                 } else {
-                    messageElement.innerText = text; // Update the existing message
+                    messageElement.innerText = text;
                 }
             }
         
             function showSendDeleteOptions() {
                 if (messageElement) {
-                    // Create send (tick) and delete (cross) icons
                     const sendIcon = document.createElement('span');
                     sendIcon.className = 'send-icon';
-                    sendIcon.innerText = '✓'; // You can replace this with an actual icon
+                    sendIcon.innerText = '✓';
                     sendIcon.onclick = function() {
                         processUserMessage(messageElement.innerText);
                         messageElement.classList.remove('pending-message');
@@ -769,16 +910,15 @@ function reEnableInputElements() {
         
                     const deleteIcon = document.createElement('span');
                     deleteIcon.className = 'delete-icon';
-                    deleteIcon.innerText = '✗'; // You can replace this with an actual icon
+                    deleteIcon.innerText = '✗';
                     deleteIcon.onclick = function() {
-                        messageElement.remove(); // Remove the message entirely
-                        messageElement = null; // Reset the message element
+                        messageElement.remove();
+                        messageElement = null;
                     };
                     sendIcon.style.cursor = 'pointer';
                     deleteIcon.style.cursor = 'pointer';
                     sendIcon.style.marginRight = '10px';
         
-                    // Append the icons to the message element
                     messageElement.appendChild(sendIcon);
                     messageElement.appendChild(deleteIcon);
                 }
@@ -792,12 +932,16 @@ function reEnableInputElements() {
             }
         
             function processUserMessage(message) {
-                // Remove the pending-message class before processing
                 if (messageElement) {
                     messageElement.classList.remove('pending-message');
                 }
-                showLoadingIndicator();
-                sendEducationalCheckRequest(message);
+                const attachment = document.querySelector('.attachment-label');
+                if (attachment) {
+                    requestQuestionAnswer(message);
+                } else {
+                    showLoadingIndicator();
+                    sendEducationalCheckRequest(message);
+                }
             }
         
             function addUserMessage(message) {
@@ -807,9 +951,10 @@ function reEnableInputElements() {
                 messageElement.innerText = message;
                 chatContainer.appendChild(messageElement);
                 scrollChatToBottom(chatContainer);
-                return messageElement; // Return the message element for further use
+                return messageElement;
             }
         };
+        
         
         
         function getCookie(name) {
@@ -872,5 +1017,6 @@ function stopSpeech() {
             icon.classList.add('fa-volume-up');
         });
     }
+
 }
 

@@ -12,4 +12,5 @@ urlpatterns = [
     path('igcse/is-educational/', views.isEudcationalRelated, name='is_educational'),
     path('igcse/image-analysis/', views.image_analysis, name='image_analysis'),
     path('igcse/recommend-videos/', views.recommend_links, name='recommend_links'),
+    path('igcse/answer-question/', views.question_answer, name='answer_question'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
